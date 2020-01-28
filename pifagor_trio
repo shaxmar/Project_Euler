@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+"""
+Тройка Пифагора - три натуральных числа a < b < c, 
+для которых выполняется равенство
+
+a2 + b2 = c2
+Например, 32 + 42 = 9 + 16 = 25 = 52.
+
+Существует только одна тройка Пифагора,
+ для которой a + b + c = 1000.
+
+
+Найдите произведение abc.
+
+
+"""
+
+class Solution(object):
+    def __init__(self,a,b,c):
+        self.a = a
+        self.b = b
+        self.c = c
+        self.a2 = a * a
+        self.b2 = b * b
+        self.c2 = c * c
+        self.sol_a = 0
+        self.sol_b = 0
+        self.sol_c = 0
+        self.solutionFound = False
+        
+ 
+    def updateABC(self,a,b,c):
+        self.a = a
+        self.b = b
+        self.c = c
+        self.a2 = self.a ** 2 
+        self.b2 = self.b ** 2
+        self.c2 = self.c ** 2
+        self.checkPigagorusRule()
+               
+   
+    def checkPigagorusRule(self):
+        test = self.a * self.a  + self.b * self.b == self.c * self.c
+        self.solutionFound = test
+        if test:
+            self.sol_a = self.a
+            self.sol_b = self.b
+            self.sol_c = self.c   
+        return test
+    
+    def checkSum(self):
+        return  self.a + self.b + self.c == 1000
+    
+    def getSolutionStr(self):
+        string = ('solution' + '(a=' + str(self.sol_a) + ',b=' + str(self.sol_b) +
+            ',c=' + str(self.sol_c) + ')')
+        return string
+        
+    def __str__(self):
+        
+        string = ('solution' + '(a=' + str(self.a) + ',b=' + str(self.b) + 
+            ',c=' + str(self.c) + ')'+ ' PifagorusRule = ' +
+            str(self.checkPigagorusRule()) +
+            ' CheckSum = ' + str(self.checkSum()))
+        
+        return string
+
+
+sol = Solution(0,0,0)
+
+for sigma in range(3, 1000):
+    
+    print(sigma)
+    c = 1000 - sigma
+    b = sigma - 1
+    a = 1
+    while b > a :         
+        sol.updateABC(a,b,c)
+        print(sol)
+        if a ** 2 + b ** 2 == c ** 2:
+            break        
+        a+=1
+        b-=1
+        
+print(sol.getSolutionStr())
